@@ -1,7 +1,5 @@
 
-/**
- * Created by poojap on 26/04/15.
- */
+
 public class Hotel {
     private String name;
     private int rating;
