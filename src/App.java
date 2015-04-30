@@ -2,9 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Created by poojap on 26/04/15.
- */
+
 public class App {
     public static void main(String[] args) {
         System.out.println("enter your type and name--");
@@ -18,7 +16,7 @@ public class App {
         hotelChain.add(new Hotel("RidgeWood",5,new DaysRate(220,150,100,40)));
         List<Integer> rates = new ArrayList<Integer>();
         for (Hotel hotel : hotelChain) {
-            System.out.println(hotel.getRate(customerType, days));
+            //System.out.println(hotel.getRate(customerType, days));
         }
     }
 }
