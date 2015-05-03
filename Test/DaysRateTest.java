@@ -29,4 +29,5 @@ public class DaysRateTest {
         DaysRate daysRate = new DaysRate(110,90,80,80);
         assertEquals(daysRate.getRate("sun","Reward"),80);
     }
+
 }

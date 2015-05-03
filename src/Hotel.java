@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hotel {
+public class Hotel implements Comparable<Hotel>{
     private String name;
     private int rating;
     private DaysRate daysRate;
@@ -12,10 +12,15 @@ public class Hotel {
         this.daysRate = daysRate;
     }
 
-    public int getRates(String customerType, String[] days) {
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public int getRate(String customerType, String[] days) {
         List rates = new ArrayList();
         for (String day : days) {
-            System.out.println(daysRate.getRate(day,customerType));
             rates.add(daysRate.getRate(day,customerType));
         }
         return getMinRate(rates);
@@ -31,8 +36,12 @@ public class Hotel {
     }
 
 
+    @Override
+    public int compareTo(Hotel hotel) {
+        if(this.rating == hotel.rating)
+        return 0;
+        else
+        return this.rating > hotel.rating ? -1 : 1;
 
-
-
-
+    }
 }

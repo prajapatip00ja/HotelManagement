@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
+import java.util.*;
 
 public class App {
     public static void main(String[] args) {
@@ -10,13 +7,42 @@ public class App {
         String input = sc.nextLine();
         String customerType = input.split(":")[0];
         String[] days   = input.split(":")[1].split(",");
-        List<Hotel> hotelChain = new ArrayList<Hotel>();
-        hotelChain.add(new Hotel("LakeWood",3,new DaysRate(110,90,80,80)));
-        hotelChain.add(new Hotel("BrideWood",4,new DaysRate(160,60,110,50)));
-        hotelChain.add(new Hotel("RidgeWood",5,new DaysRate(220,150,100,40)));
-        List<Integer> rates = new ArrayList<Integer>();
-        for (Hotel hotel : hotelChain) {
-            //System.out.println(hotel.getRate(customerType, days));
-        }
+        App app =new App();
+        System.out.println(app.getCheapestHotel(customerType, days));
     }
+
+    private Hotel findCheapHotel(TreeMap<Hotel, Integer> sortedHotels) {
+        List<Hotel> hotels = new ArrayList<Hotel>(sortedHotels.keySet());
+        if(hasDuplicates(sortedHotels)){
+            Collections.sort(hotels);
+        }
+        return hotels.get(0);
+    }
+
+    public Hotel getCheapestHotel(String customerType, String[] days) {
+        HashMap<Hotel, Integer> hotels = getHotelsWithRates(customerType, days);
+        RateComparator rateComparator =  new RateComparator(hotels);
+        TreeMap<Hotel,Integer> sortedHotels = new TreeMap<Hotel,Integer>(rateComparator);
+        sortedHotels.putAll(hotels);
+        return findCheapHotel(sortedHotels);
+    }
+
+    private  HashMap<Hotel, Integer> getHotelsWithRates(String customerType, String[] days) {
+        Hotel hotel1 = new Hotel("LakeWood",3,new DaysRate(110,90,80,80));
+        Hotel hotel2 = new Hotel("BrideWood",4,new DaysRate(160,60,110,50));
+        Hotel hotel3 = new Hotel("RidgeWood",5,new DaysRate(220,150,100,40));
+        HashMap<Hotel,Integer> map = new HashMap<Hotel,Integer>();
+        map.put(hotel1,hotel1.getRate(customerType,days));
+        map.put(hotel2,hotel2.getRate(customerType,days));
+        map.put(hotel3,hotel3.getRate(customerType,days));
+        return map;
+    }
+
+    private  boolean hasDuplicates(Map<Hotel,Integer> datamap){
+        Set valueSet=new HashSet(datamap.values());
+        if(datamap.values().size()!=valueSet.size())
+            return true;
+        return false;
+    } 
+    
 }
