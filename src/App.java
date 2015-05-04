@@ -8,10 +8,10 @@ public class App {
         String customerType = input.split(":")[0];
         String[] days   = input.split(":")[1].split(",");
         App app =new App();
-        System.out.println(app.getCheapestHotel(customerType, days));
+        System.out.println(app.getCheapestHotelName(customerType, days));
     }
 
-    private Hotel findCheapHotel(TreeMap<Hotel, Integer> sortedHotels) {
+    private Hotel findCheapestHotel(TreeMap<Hotel, Integer> sortedHotels) {
         List<Hotel> hotels = new ArrayList<Hotel>(sortedHotels.keySet());
         if(hasDuplicates(sortedHotels)){
             Collections.sort(hotels);
@@ -19,12 +19,12 @@ public class App {
         return hotels.get(0);
     }
 
-    public Hotel getCheapestHotel(String customerType, String[] days) {
+    public String getCheapestHotelName(String customerType, String[] days) {
         HashMap<Hotel, Integer> hotels = getHotelsWithRates(customerType, days);
         RateComparator rateComparator =  new RateComparator(hotels);
         TreeMap<Hotel,Integer> sortedHotels = new TreeMap<Hotel,Integer>(rateComparator);
         sortedHotels.putAll(hotels);
-        return findCheapHotel(sortedHotels);
+        return findCheapestHotel(sortedHotels).getName();
     }
 
     private  HashMap<Hotel, Integer> getHotelsWithRates(String customerType, String[] days) {

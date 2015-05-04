@@ -12,6 +12,14 @@ public class Hotel implements Comparable<Hotel>{
         this.daysRate = daysRate;
     }
 
+    public String getName(){
+        return name;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
 
     @Override
     public String toString() {
