@@ -8,7 +8,7 @@ public class App {
         String customerType = input.split(":")[0];
         String[] days   = input.split(":")[1].split(",");
         App app =new App();
-        System.out.println(app.getCheapestHotelName(customerType, days));
+       System.out.println(app.getCheapestHotelName(customerType, days));
     }
 
     private Hotel findCheapestHotel(TreeMap<Hotel, Integer> sortedHotels) {
@@ -28,9 +28,9 @@ public class App {
     }
 
     private  HashMap<Hotel, Integer> getHotelsWithRates(String customerType, String[] days) {
-        Hotel hotel1 = new Hotel("LakeWood",3,new DaysRate(110,90,80,80));
-        Hotel hotel2 = new Hotel("BrideWood",4,new DaysRate(160,60,110,50));
-        Hotel hotel3 = new Hotel("RidgeWood",5,new DaysRate(220,150,100,40));
+        Hotel hotel1 = new Hotel("LakeWood",3,new WeekDaysRate(110,80),new WeekendRate(90,80));
+        Hotel hotel2 = new Hotel("BrideWood",4,new WeekDaysRate(160,110),new WeekendRate(60,50));
+        Hotel hotel3 = new Hotel("RidgeWood",5,new WeekDaysRate(220,100),new WeekendRate(150,40));
         HashMap<Hotel,Integer> map = new HashMap<Hotel,Integer>();
         map.put(hotel1,hotel1.getRate(customerType,days));
         map.put(hotel2,hotel2.getRate(customerType,days));
@@ -43,6 +43,8 @@ public class App {
         if(datamap.values().size()!=valueSet.size())
             return true;
         return false;
-    } 
+    }
+
+
     
 }

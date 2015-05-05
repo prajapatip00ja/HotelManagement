@@ -1,22 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by poojap on 30/04/15.
- */
-public class DaysRate {
+public class WeekDaysRate {
     private int weekRateForRegular;
-    private int weekendRateForRegular;
     private int weekRateForReward;
-    private int weekendRateForReward;
-    List<String> weekDays = new ArrayList<String>();
-    List<String> weekend = new ArrayList<String>();
 
-    public DaysRate(int weekRateForRegular, int weekendRateForRegular, int weekRateForReward, int weekendRateForReward) {
+    List<String> weekDays = new ArrayList<String>();
+
+    public WeekDaysRate(int weekRateForRegular, int weekRateForReward) {
         this.weekRateForRegular = weekRateForRegular;
-        this.weekendRateForRegular = weekendRateForRegular;
         this.weekRateForReward = weekRateForReward;
-        this.weekendRateForReward = weekendRateForReward;
         pudDays();
     }
 
@@ -26,8 +19,6 @@ public class DaysRate {
         weekDays.add("wed");
         weekDays.add("thurs");
         weekDays.add("fri");
-        weekend.add("sat");
-        weekend.add("sun");
     }
 
     public int getRate(String day,String customerType){
@@ -35,12 +26,11 @@ public class DaysRate {
             return weekRateForRegular;
         else if(weekDays.contains(day) && customerType.equals("Reward"))
             return weekRateForReward;
-        else if(weekend.contains(day) && customerType.equals("Regular"))
-            return weekendRateForRegular;
-        else if(weekend.contains(day) && customerType.equals("Reward")){
-            return weekendRateForReward;
-        }
         else
             return 0;
+    }
+
+    public boolean has(String day) {
+        return weekDays.contains(day);
     }
 }

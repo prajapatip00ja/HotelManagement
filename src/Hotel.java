@@ -4,12 +4,14 @@ import java.util.List;
 public class Hotel implements Comparable<Hotel>{
     private String name;
     private int rating;
-    private DaysRate daysRate;
+    private WeekDaysRate weekDaysRate;
+    private WeekendRate weekendRate;
 
-    public Hotel(String name, int rating,DaysRate daysRate) {
+    public Hotel(String name, int rating, WeekDaysRate weekDaysRate,WeekendRate weekendRate) {
         this.name = name;
         this.rating = rating;
-        this.daysRate = daysRate;
+        this.weekDaysRate = weekDaysRate;
+        this.weekendRate = weekendRate;
     }
 
     public String getName(){
@@ -29,7 +31,10 @@ public class Hotel implements Comparable<Hotel>{
     public int getRate(String customerType, String[] days) {
         List rates = new ArrayList();
         for (String day : days) {
-            rates.add(daysRate.getRate(day,customerType));
+            if(weekDaysRate.has(day))
+                rates.add(weekDaysRate.getRate(day, customerType));
+            else
+                rates.add(weekendRate.getRate(day,customerType));
         }
         return getMinRate(rates);
     }
